@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/assets/css/style.css">
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Verified Deployments to GitHub | LuxForge</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Verified Deployments to GitHub" />
+<meta name="author" content="LuxForge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="LuxForge now deploys with a verified signature. This post outlines how to ensure future deploys inherit the same signature." />
+<meta property="og:description" content="LuxForge now deploys with a verified signature. This post outlines how to ensure future deploys inherit the same signature." />
+<link rel="canonical" href="https://30somethingprogrammer.github.io/luxforge/2025/09/22/verified-github-commits.html" />
+<meta property="og:url" content="https://30somethingprogrammer.github.io/luxforge/2025/09/22/verified-github-commits.html" />
+<meta property="og:site_name" content="LuxForge" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-22T17:20:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Verified Deployments to GitHub" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LuxForge"},"dateModified":"2025-09-22T17:20:00+01:00","datePublished":"2025-09-22T17:20:00+01:00","description":"LuxForge now deploys with a verified signature. This post outlines how to ensure future deploys inherit the same signature.","headline":"Verified Deployments to GitHub","mainEntityOfPage":{"@type":"WebPage","@id":"https://30somethingprogrammer.github.io/luxforge/2025/09/22/verified-github-commits.html"},"url":"https://30somethingprogrammer.github.io/luxforge/2025/09/22/verified-github-commits.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://30somethingprogrammer.github.io/luxforge/feed.xml" title="LuxForge" /></head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">LuxForge</a>
+    <!--Add the favicon link. Hammer time-->
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <nav class="site-nav">
+      <div class="menu-wrapper">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger" class="menu-toggle">
+            <div class="icon-container">
+              <svg class="menu-icon" viewBox="0 0 100 100" width="40" height="40">
+                <path class="line top" d="M20,10h60" />
+                <path class="line middle" d="M20,40h60" />
+                <path class="line bottom" d="M20,70h60" />
+              </svg>
+            </div>
+          </label>
+        <div class="trigger">
+          <nav class="main-nav">
+            <a href="/">Home</a>
+            <a href="/about/">About&nbsp;LuxForge</a>
+            <a href="/tags/">Browse&nbsp;Tags</a>
+            <a href="/archive/">Incident&nbsp;Archive</a>
+          </nav>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Verified Deployments to GitHub</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2025-09-22T17:20:00+01:00" itemprop="datePublished">22 Sep $y (Mon), 17:20
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>LuxForge now deploys with a verified signature. This post outlines how to ensure future deploys inherit the same signature.</p>
+
+<hr />
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li>✅ Git identity corrected from placeholder to the user identinty (our case, <code class="language-plaintext highlighter-rouge">lux-forge</code>)</li>
+  <li>
+    <h2 id="-commits-now-show-the-verified-badge-on-github">✅ Commits now show the <strong>Verified</strong> badge on GitHub</h2>
+  </li>
+</ul>
+
+<h2 id="️-how-to-verified-github-commits">🛠️ How to: Verified GitHub Commits</h2>
+
+<p>To get the <strong>Verified</strong> badge on commits:</p>
+
+<ol>
+  <li><strong>Generate a GPG key</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--full-generate-key</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>List your key</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--list-secret-keys</span> <span class="nt">--keyid-format</span> LONG
+</code></pre></div>    </div>
+
+    <p>Look for the long string after <code class="language-plaintext highlighter-rouge">rsa4096/</code>—that’s your key ID.</p>
+  </li>
+  <li><strong>Export your public key</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--armor</span> <span class="nt">--export</span> YOUR_KEY_ID
+</code></pre></div>    </div>
+    <p>Copy the entire key</p>
+  </li>
+  <li><strong>Add it to GitHub</strong>:<br />
+Go to <a href="https://github.com/settings/keys">GitHub → User Icon → Settings → SSH and GPG keys</a> → <strong>New GPG key</strong>
+ Paste the key</li>
+  <li><strong>Configure Git to sign commits</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.signingkey YOUR_KEY_ID
+git config <span class="nt">--global</span> commit.gpgsign <span class="nb">true</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Test it</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-S</span> <span class="nt">-m</span> <span class="s2">"Signed LuxForge deploy"</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Your commits will now show the <strong>Verified</strong> badge on GitHub.</p>
+
+<hr />
+
+<h2 id="summary">Summary</h2>
+
+<p>We all like big green signs and the Verified one is no different. Not only that but it also ensures future deployments are secure. Lovely.</p>
+
+<hr />
+
+  </div><a class="u-url" href="/2025/09/22/verified-github-commits.html" hidden></a>
+</article>
+
+      </div>
+    </main><link id="fa-stylesheet" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+
+<footer class="site-footer h-card">
+  <data class="u-url" value="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">LuxForge</li>
+          <li><a class="u-email" href="mailto:t@b.c">t@b.c</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>Narrative incident logs and homelab insights from ShinxLab</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a href="https://github.com/30somethingprogrammer"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">30somethingprogrammer</span></a></li></ul>
+</div>
+
+  </div>
+
+  <!-- LUXFORGE versioning -->
+   
+  <div class="luxforge-version">
+    └─ LuxForge v1.0.7 Forged 2025-09-21 20:02 BST─┘
+  </div>
+  
+  <div class="luxforge-meta">
+    Commit: <span class="commit-hash">a4ff071</span> · 
+    <a href="https://github.com/30-something-programmer/luxforge.github.io/blob/main/CHANGELOG.md" target="_blank">View Changelog</a>
+  </div>
+</footer></body>
+
+</html>

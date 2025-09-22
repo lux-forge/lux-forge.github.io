@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://30somethingprogrammer.github.io/luxforge/feed.xml" rel="self" type="application/atom+xml" /><link href="https://30somethingprogrammer.github.io/luxforge/" rel="alternate" type="text/html" /><updated>2025-09-22T12:52:47+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/feed.xml</id><title type="html">LuxForge</title><subtitle>Narrative incident logs and homelab insights from ShinxLab</subtitle><author><name>LuxForge</name><email>t@b.c</email></author><entry><title type="html">The Syntax That Broke the Skin: SCSS and the Silent Fail</title><link href="https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough.html" rel="alternate" type="text/html" title="The Syntax That Broke the Skin: SCSS and the Silent Fail" /><published>2025-09-20T21:06:00+01:00</published><updated>2025-09-20T21:06:00+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough</id><content type="html" xml:base="https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough.html"><![CDATA[<p>Irony at its finest. While trying to come up with a new way of adding a blog in an “easy fashion” I of course made things 10 times harder by trying to learn a new software in github pages. Figuring it can’t be that hard, I forged ahead and looked into making it look sleek. I found a brilliant post that was ~ 5 years old in a blog called the (Slowbro blog)[https://blog.slowb.ro/dark-theme-for-minima-jekyll/]. Knowing I primarily use a windows machine for my own use, I don’t natrually have a Linux machine to work with. So, natrually, I had to come up to speed with the usability of WSL too.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://30somethingprogrammer.github.io/luxforge/feed.xml" rel="self" type="application/atom+xml" /><link href="https://30somethingprogrammer.github.io/luxforge/" rel="alternate" type="text/html" /><updated>2025-09-22T17:30:06+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/feed.xml</id><title type="html">LuxForge</title><subtitle>Narrative incident logs and homelab insights from ShinxLab</subtitle><author><name>LuxForge</name><email>t@b.c</email></author><entry><title type="html">Verified Deployments to GitHub</title><link href="https://30somethingprogrammer.github.io/luxforge/2025/09/22/verified-github-commits.html" rel="alternate" type="text/html" title="Verified Deployments to GitHub" /><published>2025-09-22T17:20:00+01:00</published><updated>2025-09-22T17:20:00+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/2025/09/22/verified-github-commits</id><content type="html" xml:base="https://30somethingprogrammer.github.io/luxforge/2025/09/22/verified-github-commits.html"><![CDATA[<p>LuxForge now deploys with a verified signature. This post outlines how to ensure future deploys inherit the same signature.</p>
+
+<hr />
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li>✅ Git identity corrected from placeholder to the user identinty (our case, <code class="language-plaintext highlighter-rouge">lux-forge</code>)</li>
+  <li>
+    <h2 id="-commits-now-show-the-verified-badge-on-github">✅ Commits now show the <strong>Verified</strong> badge on GitHub</h2>
+  </li>
+</ul>
+
+<h2 id="️-how-to-verified-github-commits">🛠️ How to: Verified GitHub Commits</h2>
+
+<p>To get the <strong>Verified</strong> badge on commits:</p>
+
+<ol>
+  <li><strong>Generate a GPG key</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--full-generate-key</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>List your key</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--list-secret-keys</span> <span class="nt">--keyid-format</span> LONG
+</code></pre></div>    </div>
+
+    <p>Look for the long string after <code class="language-plaintext highlighter-rouge">rsa4096/</code>—that’s your key ID.</p>
+  </li>
+  <li><strong>Export your public key</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--armor</span> <span class="nt">--export</span> YOUR_KEY_ID
+</code></pre></div>    </div>
+    <p>Copy the entire key</p>
+  </li>
+  <li><strong>Add it to GitHub</strong>:<br />
+Go to <a href="https://github.com/settings/keys">GitHub → User Icon → Settings → SSH and GPG keys</a> → <strong>New GPG key</strong>
+ Paste the key</li>
+  <li><strong>Configure Git to sign commits</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.signingkey YOUR_KEY_ID
+git config <span class="nt">--global</span> commit.gpgsign <span class="nb">true</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Test it</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-S</span> <span class="nt">-m</span> <span class="s2">"Signed LuxForge deploy"</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Your commits will now show the <strong>Verified</strong> badge on GitHub.</p>
+
+<hr />
+
+<h2 id="summary">Summary</h2>
+
+<p>We all like big green signs and the Verified one is no different. Not only that but it also ensures future deployments are secure. Lovely.</p>
+
+<hr />]]></content><author><name>LuxForge</name><email>t@b.c</email></author><category term="luxforge-ui" /><category term="git-signing" /><category term="verified-badge" /><summary type="html"><![CDATA[LuxForge now deploys with a verified signature. This post outlines how to ensure future deploys inherit the same signature.]]></summary></entry><entry><title type="html">The Syntax That Broke the Skin: SCSS and the Silent Fail</title><link href="https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough.html" rel="alternate" type="text/html" title="The Syntax That Broke the Skin: SCSS and the Silent Fail" /><published>2025-09-20T21:06:00+01:00</published><updated>2025-09-20T21:06:00+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough</id><content type="html" xml:base="https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough.html"><![CDATA[<p>Irony at its finest. While trying to come up with a new way of adding a blog in an “easy fashion” I of course made things 10 times harder by trying to learn a new software in github pages. Figuring it can’t be that hard, I forged ahead and looked into making it look sleek. I found a brilliant post that was ~ 5 years old in a blog called the (Slowbro blog)[https://blog.slowb.ro/dark-theme-for-minima-jekyll/]. Knowing I primarily use a windows machine for my own use, I don’t natrually have a Linux machine to work with. So, natrually, I had to come up to speed with the usability of WSL too.</p>
 
 <p>Some 5 hours later, I was almost there. Jekyll was installed on my new Ubuntu 22.04 WSL kernel attached to a VSCode instance to make modifying the files just that bit easier. As a programmer, I am natrually lazy so I wanted to find a way of automating the version control and changelog. Well, here we are with another post. Will it last? Who knows. But I learnt something new and, lets be honest, thats what a homelab is all about.</p>
 

@@ -41,8 +41,8 @@ rsync -av --delete --exclude='.git' $BUILD_DIR/ $DEPLOY_DIR/
 
 # ─── Commit and push ─────────────────────────
 cd $DEPLOY_DIR
-git config user.name "LuxForge"
-git config user.email "your-email@domain.com"
+git config user.name "lux-forge"
+git config user.email "luxforge@users.noreply.github.com"
 
 if $DRY_RUN; then
   echo "🧪 Dry run mode: skipping commit and push"

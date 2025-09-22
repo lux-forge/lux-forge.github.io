@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/assets/css/style.css">
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>The Rule That Slipped Through: pfSense and the Floating Ghost | LuxForge</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="The Rule That Slipped Through: pfSense and the Floating Ghost" />
+<meta name="author" content="LuxForge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="It started with a shrug. VLAN 30 was supposed to be locked down—tight, clean, no cross-talk. But something slipped through. I caught it during a routine packet capture, just a flicker of traffic that shouldn’t have been there. At first, I thought it was a misfire in the rule set. Maybe I’d forgotten to apply the block to the right interface. But everything looked clean." />
+<meta property="og:description" content="It started with a shrug. VLAN 30 was supposed to be locked down—tight, clean, no cross-talk. But something slipped through. I caught it during a routine packet capture, just a flicker of traffic that shouldn’t have been there. At first, I thought it was a misfire in the rule set. Maybe I’d forgotten to apply the block to the right interface. But everything looked clean." />
+<link rel="canonical" href="https://30somethingprogrammer.github.io/luxforge/2025/09/20/firewall-rule-divergence.html" />
+<meta property="og:url" content="https://30somethingprogrammer.github.io/luxforge/2025/09/20/firewall-rule-divergence.html" />
+<meta property="og:site_name" content="LuxForge" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-20T20:48:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="The Rule That Slipped Through: pfSense and the Floating Ghost" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LuxForge"},"dateModified":"2025-09-20T20:48:00+01:00","datePublished":"2025-09-20T20:48:00+01:00","description":"It started with a shrug. VLAN 30 was supposed to be locked down—tight, clean, no cross-talk. But something slipped through. I caught it during a routine packet capture, just a flicker of traffic that shouldn’t have been there. At first, I thought it was a misfire in the rule set. Maybe I’d forgotten to apply the block to the right interface. But everything looked clean.","headline":"The Rule That Slipped Through: pfSense and the Floating Ghost","mainEntityOfPage":{"@type":"WebPage","@id":"https://30somethingprogrammer.github.io/luxforge/2025/09/20/firewall-rule-divergence.html"},"url":"https://30somethingprogrammer.github.io/luxforge/2025/09/20/firewall-rule-divergence.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://30somethingprogrammer.github.io/luxforge/feed.xml" title="LuxForge" /></head>
+<body><header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">LuxForge</a>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <nav class="site-nav">
+      <div class="menu-wrapper">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+          <label for="nav-trigger" class="menu-toggle">
+            <div class="icon-container">
+              <svg class="menu-icon" viewBox="0 0 100 100" width="40" height="40">
+                <path class="line top" d="M20,10h60" />
+                <path class="line middle" d="M20,40h60" />
+                <path class="line bottom" d="M20,70h60" />
+              </svg>
+            </div>
+          </label>
+        <div class="trigger">
+          <nav class="main-nav">
+            <a href="/">Home</a>
+            <a href="/about/">About&nbsp;LuxForge</a>
+            <a href="/tags/">Browse&nbsp;Tags</a>
+            <a href="/archive/">Incident&nbsp;Archive</a>
+          </nav>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">The Rule That Slipped Through: pfSense and the Floating Ghost</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2025-09-20T20:48:00+01:00" itemprop="datePublished">20 Sep $y (Sat), 20:48
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>It started with a shrug. VLAN 30 was supposed to be locked down—tight, clean, no cross-talk. But something slipped through. I caught it during a routine packet capture, just a flicker of traffic that shouldn’t have been there. At first, I thought it was a misfire in the rule set. Maybe I’d forgotten to apply the block to the right interface. But everything looked clean.</p>
+
+<p>pfSense said the rule matched. The logs agreed. And yet, the traffic flowed.</p>
+
+<p>I dug deeper. Interface bindings, rule order, floating rules. That’s when I found it—the ghost. A floating rule, long forgotten, silently overriding the interface-specific block. It wasn’t malicious. Just… legacy. A leftover from an earlier experiment, now quietly sabotaging the present.</p>
+
+<p>I stripped it out. Rebuilt the rule set. Captured again. Silence. The block held.</p>
+
+<p>This wasn’t just a fix. It was a reminder: pfSense’s rule evaluation isn’t always intuitive. Floating rules can override without warning. And in a multi-VLAN setup, ghosts linger.</p>
+
+<p>This incident is logged in <code class="language-plaintext highlighter-rouge">.forge-history</code>, stamped in v1.0.1, and burned into LuxForge’s memory.</p>
+
+<hr />
+
+<p><strong>Tags:</strong></p>
+
+<p><a href="/tags/incident/">incident</a>,</p>
+
+<p><a href="/tags/pfsense/">pfsense</a>,</p>
+
+<p><a href="/tags/firewall/">firewall</a>,</p>
+
+<p><a href="/tags/homelab/">homelab</a>,</p>
+
+<p><a href="/tags/luxforge/">luxforge</a></p>
+
+<p><strong>Related:</strong></p>
+
+<ul>
+  <li><a href="https://github.com/30-something-programmer/luxforge.github.io/blob/main/CHANGELOG.md">LuxForge Changelog</a></li>
+  <li><a href="https://github.com/30-something-programmer/luxforge.github.io/commit/b664c4b">Commit b664c4b</a></li>
+</ul>
+
+  </div><a class="u-url" href="/2025/09/20/firewall-rule-divergence.html" hidden></a>
+</article>
+
+      </div>
+    </main><link id="fa-stylesheet" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+
+<footer class="site-footer h-card">
+  <data class="u-url" value="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">LuxForge</li>
+          <li><a class="u-email" href="mailto:t@b.c">t@b.c</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>Narrative incident logs and homelab insights from ShinxLab</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a href="https://github.com/30somethingprogrammer"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">30somethingprogrammer</span></a></li></ul>
+</div>
+
+  </div>
+
+  <!-- LUXFORGE versioning -->
+   
+  <div class="luxforge-version">
+    └─ LuxForge v1.0.7 Forged 2025-09-21 20:02 BST─┘
+  </div>
+  
+  <div class="luxforge-meta">
+    Commit: <span class="commit-hash">a4ff071</span> · 
+    <a href="https://github.com/30-something-programmer/luxforge.github.io/blob/main/CHANGELOG.md" target="_blank">View Changelog</a>
+  </div>
+</footer></body>
+
+</html>

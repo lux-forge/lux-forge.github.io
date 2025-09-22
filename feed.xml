@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://30somethingprogrammer.github.io/luxforge/feed.xml" rel="self" type="application/atom+xml" /><link href="https://30somethingprogrammer.github.io/luxforge/" rel="alternate" type="text/html" /><updated>2025-09-22T12:45:23+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/feed.xml</id><title type="html">LuxForge</title><subtitle>Narrative incident logs and homelab insights from ShinxLab</subtitle><author><name>LuxForge</name><email>t@b.c</email></author><entry><title type="html">The Syntax That Broke the Skin: SCSS and the Silent Fail</title><link href="https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough.html" rel="alternate" type="text/html" title="The Syntax That Broke the Skin: SCSS and the Silent Fail" /><published>2025-09-20T21:06:00+01:00</published><updated>2025-09-20T21:06:00+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough</id><content type="html" xml:base="https://30somethingprogrammer.github.io/luxforge/2025/09/20/scss-theme-breakthrough.html"><![CDATA[<p>Irony at its finest. While trying to come up with a new way of adding a blog in an “easy fashion” I of course made things 10 times harder by trying to learn a new software in github pages. Figuring it can’t be that hard, I forged ahead and looked into making it look sleek. I found a brilliant post that was ~ 5 years old in a blog called the (Slowbro blog)[https://blog.slowb.ro/dark-theme-for-minima-jekyll/]. Knowing I primarily use a windows machine for my own use, I don’t natrually have a Linux machine to work with. So, natrually, I had to come up to speed with the usability of WSL too.</p>
+
+<p>Some 5 hours later, I was almost there. Jekyll was installed on my new Ubuntu 22.04 WSL kernel attached to a VSCode instance to make modifying the files just that bit easier. As a programmer, I am natrually lazy so I wanted to find a way of automating the version control and changelog. Well, here we are with another post. Will it last? Who knows. But I learnt something new and, lets be honest, thats what a homelab is all about.</p>
+
+<p>Logged in <code class="language-plaintext highlighter-rouge">.forge-history</code>, stamped in v1.0.2, and burned into LuxForge’s memory.</p>
+
+<hr />
+
+<p><strong>Tags:</strong></p>
+
+<p><a href="/tags/incident">incident</a></p>
+
+<p><a href="/tags/scss">scss</a></p>
+
+<p><a href="/tags/theme">theme</a></p>
+
+<p><a href="/tags/luxforge">luxforge</a></p>
+
+<p><a href="/tags/dark-mode">dark-mode</a></p>
+
+<p><strong>Related:</strong></p>
+
+<ul>
+  <li><a href="https://github.com/30-something-programmer/luxforge.github.io/blob/main/CHANGELOG.md">LuxForge Changelog</a></li>
+  <li>[Commit <latest hash="">](https://github.com/30-something-programmer/luxforge.github.io/commit/<latest hash="">)</latest></latest></li>
+</ul>]]></content><author><name>LuxForge</name><email>t@b.c</email></author><category term="incident" /><category term="scss" /><category term="theme" /><category term="luxforge" /><category term="dark-mode" /><summary type="html"><![CDATA[Irony at its finest. While trying to come up with a new way of adding a blog in an “easy fashion” I of course made things 10 times harder by trying to learn a new software in github pages. Figuring it can’t be that hard, I forged ahead and looked into making it look sleek. I found a brilliant post that was ~ 5 years old in a blog called the (Slowbro blog)[https://blog.slowb.ro/dark-theme-for-minima-jekyll/]. Knowing I primarily use a windows machine for my own use, I don’t natrually have a Linux machine to work with. So, natrually, I had to come up to speed with the usability of WSL too.]]></summary></entry><entry><title type="html">The Rule That Slipped Through: pfSense and the Floating Ghost</title><link href="https://30somethingprogrammer.github.io/luxforge/2025/09/20/firewall-rule-divergence.html" rel="alternate" type="text/html" title="The Rule That Slipped Through: pfSense and the Floating Ghost" /><published>2025-09-20T20:48:00+01:00</published><updated>2025-09-20T20:48:00+01:00</updated><id>https://30somethingprogrammer.github.io/luxforge/2025/09/20/firewall-rule-divergence</id><content type="html" xml:base="https://30somethingprogrammer.github.io/luxforge/2025/09/20/firewall-rule-divergence.html"><![CDATA[<p>It started with a shrug. VLAN 30 was supposed to be locked down—tight, clean, no cross-talk. But something slipped through. I caught it during a routine packet capture, just a flicker of traffic that shouldn’t have been there. At first, I thought it was a misfire in the rule set. Maybe I’d forgotten to apply the block to the right interface. But everything looked clean.</p>
+
+<p>pfSense said the rule matched. The logs agreed. And yet, the traffic flowed.</p>
+
+<p>I dug deeper. Interface bindings, rule order, floating rules. That’s when I found it—the ghost. A floating rule, long forgotten, silently overriding the interface-specific block. It wasn’t malicious. Just… legacy. A leftover from an earlier experiment, now quietly sabotaging the present.</p>
+
+<p>I stripped it out. Rebuilt the rule set. Captured again. Silence. The block held.</p>
+
+<p>This wasn’t just a fix. It was a reminder: pfSense’s rule evaluation isn’t always intuitive. Floating rules can override without warning. And in a multi-VLAN setup, ghosts linger.</p>
+
+<p>This incident is logged in <code class="language-plaintext highlighter-rouge">.forge-history</code>, stamped in v1.0.1, and burned into LuxForge’s memory.</p>
+
+<hr />
+
+<p><strong>Tags:</strong></p>
+
+<p><a href="/tags/incident/">incident</a>,</p>
+
+<p><a href="/tags/pfsense/">pfsense</a>,</p>
+
+<p><a href="/tags/firewall/">firewall</a>,</p>
+
+<p><a href="/tags/homelab/">homelab</a>,</p>
+
+<p><a href="/tags/luxforge/">luxforge</a></p>
+
+<p><strong>Related:</strong></p>
+
+<ul>
+  <li><a href="https://github.com/30-something-programmer/luxforge.github.io/blob/main/CHANGELOG.md">LuxForge Changelog</a></li>
+  <li><a href="https://github.com/30-something-programmer/luxforge.github.io/commit/b664c4b">Commit b664c4b</a></li>
+</ul>]]></content><author><name>LuxForge</name><email>t@b.c</email></author><category term="incident" /><category term="pfsense" /><category term="firewall" /><category term="homelab" /><category term="luxforge" /><summary type="html"><![CDATA[It started with a shrug. VLAN 30 was supposed to be locked down—tight, clean, no cross-talk. But something slipped through. I caught it during a routine packet capture, just a flicker of traffic that shouldn’t have been there. At first, I thought it was a misfire in the rule set. Maybe I’d forgotten to apply the block to the right interface. But everything looked clean.]]></summary></entry></feed>

@@ -1,62 +1,56 @@
 #!/bin/bash
-# ignite-pages.sh — Branded deployment script for LuxForge
-# Features: dry-run mode, build stamping, metadata injection, and GitHub Pages push
+
+# ┌────────────────────────────────────────────┐
+# │ LuxForge Deployment Script: ignite-pages.sh │
+# └────────────────────────────────────────────┘
 
 set -e
 
-# Configurable variables
-REPO_DIR="$HOME/luxforge-blog"              # Path to your repo
-BUILD_DIR="$REPO_DIR/_site"            # Jekyll output directory
-STAMP_FILE="$REPO_DIR/_includes/build-stamp.html"
+SOURCE_REPO="https://github.com/lux-forge/luxforge.blog.source.git"
+BLOG_REPO="https://github.com/lux-forge/lux-forge.github.io.git"
+BUILD_DIR="_site"
+DEPLOY_DIR="../luxforge-blog-output"
+STAMP=$(date +"%Y-%m-%d %H:%M:%S")
+VERSION="LuxForge v1.0.0"
 DRY_RUN=false
-BRANCH="main"
-REMOTE="origin"
+LOG_MESSAGE="Deploy: $VERSION — $STAMP"
 
-# Branding metadata
-BUILD_DATE=$(date +"%Y-%m-%d %H:%M:%S")
-COMMIT_HASH=$(git -C "$REPO_DIR" rev-parse --short HEAD)
-TAGLINE="Forged with purpose — $BUILD_DATE ($COMMIT_HASH)"
-
-# Parse arguments
-for arg in "$@"; do
-  case $arg in
+# ─── Parse flags ─────────────────────────────
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
     --dry-run) DRY_RUN=true ;;
-    --branch=*) BRANCH="${arg#*=}" ;;
-    --remote=*) REMOTE="${arg#*=}" ;;
-    *) echo "Unknown option: $arg"; exit 1 ;;
+    --log) LOG_MESSAGE="$2"; shift ;;
+    --version) VERSION="$2"; shift ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
   esac
+  shift
 done
 
-echo "🔥 Igniting LuxForge deployment..."
-echo "→ Repo: $REPO_DIR"
-echo "→ Branch: $BRANCH"
-echo "→ Dry-run: $DRY_RUN"
-
-# Inject build stamp
-echo "<!-- $TAGLINE -->" > "$STAMP_FILE"
-echo "✓ Build stamp injected: $TAGLINE"
-
-# Build site
-cd "$REPO_DIR"
+# ─── Build site ──────────────────────────────
+echo "🔨 Building site from source…"
 bundle exec jekyll build
-echo "✓ Jekyll build complete"
 
-# Dry-run preview
+# ─── Prepare deploy repo ─────────────────────
+echo "📦 Preparing blog deployment repo…"
+rm -rf $DEPLOY_DIR
+git clone $BLOG_REPO $DEPLOY_DIR
+
+# ─── Copy built site ─────────────────────────
+echo "🚚 Copying built site to deploy repo…"
+rsync -av --delete --exclude='.git' $BUILD_DIR/ $DEPLOY_DIR/
+
+# ─── Commit and push ─────────────────────────
+cd $DEPLOY_DIR
+git config user.name "LuxForge"
+git config user.email "your-email@domain.com"
+
 if $DRY_RUN; then
-  echo "🧪 Dry-run mode active — skipping git push"
-  echo "Preview available at: file://$BUILD_DIR/index.html"
-  exit 0
+  echo "🧪 Dry run mode: skipping commit and push"
+  echo "Would commit: $LOG_MESSAGE"
+else
+  echo "🚀 Committing and pushing to blog repo…"
+  git add -A
+  git commit -m "$LOG_MESSAGE"
+  git push origin main
+  echo "✅ Deployed: $LOG_MESSAGE"
 fi
-
-# Commit and push
-git add "$STAMP_FILE"
-git commit -m "Deploy: $TAGLINE"
-git push "$REMOTE" "$BRANCH"
-echo "🚀 Deployment pushed to $REMOTE/$BRANCH"
-
-# Open GitHub Pages site
-SITE_URL="https://luxforge.dev"
-echo "🌐 Opening deployed site: $SITE_URL"
-xdg-open "$SITE_URL" 2>/dev/null || open "$SITE_URL" || echo "Please visit: $SITE_URL"
-
-echo "✅ LuxForge ignition complete."
